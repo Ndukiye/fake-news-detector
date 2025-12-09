@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AuthentiScan Shield</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup-container dark">
+    <header class="header">
+      <div class="brand">AuthentiScan</div>
+      <div class="subtitle">Fake News • Phishing</div>
+    </header>
+    <main>
+      <div class="card">
+        <div class="url-row">
+          <input id="manual-url" type="text" placeholder="Enter URL" />
+          <button id="analyze-btn" class="primary">Analyze</button>
+        </div>
+        <div class="checks">
+          <label><input type="checkbox" id="chk-phish" checked/> Phishing detection</label>
+          <label><input type="checkbox" id="chk-fact" checked/> Fact-check via search</label>
+          <label><input type="checkbox" id="chk-domain" checked/> Domain reputation</label>
+          <label><input type="checkbox" id="chk-linguistic" checked/> Linguistic patterns</label>
+          <label><input type="checkbox" id="chk-ml"/> Lightweight ML</label>
+        </div>
+      </div>
+
+      <div id="loading" class="hidden">Analyzing…</div>
+
+      <div id="score-section" class="hidden card">
+        <div class="score-wrap">
+          <div id="score-badge" class="score-circle"></div>
+          <div id="verdict-text" class="verdict"></div>
+        </div>
+        <div class="bar"><div id="bar-fill"></div></div>
+      </div>
+
+      <details id="evidence-section" class="hidden card">
+        <summary>Evidence</summary>
+        <ul id="evidence-list"></ul>
+      </details>
+
+      <details id="tests-section" class="hidden card">
+        <summary>Test Breakdown</summary>
+        <ul id="tests-list"></ul>
+        <div id="tests-legend" class="legend hidden">Impact adds/subtracts from 50 baseline.</div>
+      </details>
+
+      <div id="error-message" class="hidden"></div>
+    </main>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

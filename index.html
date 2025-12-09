@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News & Phishing Shield</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-content">
+            <div class="logo">
+                <a href="#">AuthentiScan</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="hero-section">
+            <h1>Rule-Based News & Site Verifier</h1>
+            <p>Paste any article or blog link. We analyze phishing signals, domain reputation, language patterns, and more—no AI black boxes.</p>
+        </div>
+    </header>
+    <main class="container">
+        <div class="card">
+            <form id="detectForm">
+                <label for="articleLink">Enter News Article or Blog Link:</label>
+                <input type="url" id="articleLink" name="articleLink" placeholder="https://example.com/news-article-or-blog" required>
+                <button type="submit">Analyze Authenticity</button>
+            </form>
+            <div id="results" class="results hidden">
+                <h2>Verification Results</h2>
+                <div id="scoreBadge" class="score-badge"></div>
+                <div id="resultContent"></div>
+                <details id="evidenceDetails" class="evidence-details">
+                    <summary>Evidence Breakdown</summary>
+                    <ul id="evidenceList"></ul>
+                </details>
+            </div>
+        </div>
+        <section class="about-section">
+            <h2>About AuthentiScan</h2>
+            <p>AuthentiScan now uses transparent, rule-based checks—phishing heuristics, domain reputation, linguistic red flags, and optional web-search corroboration—to give you an authenticity score you can trust, without hidden AI models.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 AuthentiScan. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

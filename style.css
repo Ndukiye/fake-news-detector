@@ -1,0 +1,279 @@
+/* Reset default margins and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+header h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 2.5rem;
+}
+
+header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    padding: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-size: 1.2rem;
+    color: #2c3e50;
+}
+
+input[type="url"] {
+    padding: 15px;
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input[type="url"]:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+button {
+    padding: 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.results {
+    margin-top: 30px;
+    padding: 20px;
+    border-top: 2px solid #ecf0f1;
+}
+
+.results h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+#resultContent {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #34495e;
+}
+
+.hidden {
+    display: none;
+}
+
+.score-badge {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.score-badge span {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.badge-good {
+    background-color: #27ae60;
+}
+
+.badge-ok {
+    background-color: #f39c12;
+}
+
+.badge-caution {
+    background-color: #e67e22;
+}
+
+.badge-bad {
+    background-color: #e74c3c;
+}
+
+.badge-neutral {
+    background-color: #95a5a6;
+}
+
+.evidence-details {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.evidence-details summary {
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.evidence-details ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.evidence-details li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.about-section {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: #e9f2f7;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.about-section h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.about-section p {
+    color: #34495e;
+    font-size: 1rem;
+    text-align: justify;
+    line-height: 1.7;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    border-top: 1px solid #ecf0f1;
+}
+
+.main-header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo a {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #34495e;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #3498db;
+}
+
+.hero-section {
+    background-color: #4f809f;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    padding: 60px 20px;
+    border-radius: 0 0 10px 10px;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    nav ul {
+        margin-top: 15px;
+        justify-content: center;
+    }
+    .hero-section h1 {
+        font-size: 2.2rem;
+    }
+    .hero-section p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+}

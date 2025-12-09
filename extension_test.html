@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extension Test Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .test-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #667eea;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #5a6fd8;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            display: none;
+        }
+        .score-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .badge-good { background: #28a745; }
+        .badge-ok { background: #ffc107; color: #333; }
+        .badge-caution { background: #fd7e14; }
+        .badge-bad { background: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ Extension Test</h1>
+        <div class="test-buttons">
+            <button onclick="testGoodArticle()">Test Good Article</button>
+            <button onclick="testSuspiciousArticle()">Test Suspicious Article</button>
+            <button onclick="testPhishingURL()">Test Phishing URL</button>
+        </div>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        async function analyzeContent(url, title, text) {
+            try {
+                const response = await fetch('http://localhost:5000/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ url, title, text })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Analysis error:', error);
+                throw error;
+            }
+        }
+
+        function displayResult(result) {
+            const resultDiv = document.getElementById('result');
+            const score = result.score;
+            let badgeClass = 'badge-good';
+            
+            if (score < 30) badgeClass = 'badge-bad';
+            else if (score < 50) badgeClass = 'badge-caution';
+            else if (score < 70) badgeClass = 'badge-ok';
+            
+            let evidenceHtml = '<h4>Evidence:</h4><ul>';
+            result.evidence.forEach(item => {
+                evidenceHtml += `<li><strong>${item.type}:</strong> ${item.signal} (${item.impact})</li>`;
+            });
+            evidenceHtml += '</ul>';
+            
+            resultDiv.innerHTML = `
+                <div class="score-badge ${badgeClass}">Score: ${score}/100</div>
+                <h3>Verdict: ${result.verdict}</h3>
+                ${evidenceHtml}
+            `;
+            resultDiv.style.display = 'block';
+        }
+
+        async function testGoodArticle() {
+            try {
+                const result = await analyzeContent(
+                    'https://reuters.com/article',
+                    'Economic Growth Continues Steadily',
+                    'Recent data shows that economic growth has continued at a steady pace throughout the third quarter, with analysts predicting similar trends for the remainder of the year.'
+                );
+                displayResult(result);
+            } catch (error) {
+                alert('Error testing good article: ' + error.message);
+            }
+        }
+
+        async function testSuspiciousArticle() {
+            try {
+                const result = await analyzeContent(
+                    'http://suspicious-site.com/clickbait',
+                    'YOU WON\'T BELIEVE What Happened NEXT!!!',
+                    'This INCREDIBLE discovery will CHANGE YOUR LIFE forever!!! Doctors HATE this one weird trick!!! Click NOW to find out the SHOCKING truth!!!'
+                );
+                displayResult(result);
+            } catch (error) {
+                alert('Error testing suspicious article: ' + error.message);
+            }
+        }
+
+        async function testPhishingURL() {
+            try {
+                const result = await analyzeContent(
+                    'http://192.168.1.1/urgent-security-update',
+                    'URGENT: Security Update Required',
+                    'Your account has been compromised! Click here immediately to verify your identity and prevent unauthorized access to your personal information.'
+                );
+                displayResult(result);
+            } catch (error) {
+                alert('Error testing phishing URL: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

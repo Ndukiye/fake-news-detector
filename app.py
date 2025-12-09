@@ -42,12 +42,40 @@ def analyze_article():
 
         article_text = (article_text or '').strip()
         if not article_text:
-            return jsonify({'error': 'Could not extract article text'}), 400
+            # URL-only fallback: analyze using URL-based checks, skip text-dependent ones
+            fallback_opts = {
+                'phishing': bool(options.get('phishing', True)),
+                'domain': bool(options.get('domain', True)),
+                'linguistic': False,
+                'content': False,
+                'fact': False,
+                'ml': bool(options.get('ml', True))
+            }
+            result = calculate_authenticity_score(url or "(url-only)", "(No content)", "", fallback_opts)
+            result.setdefault('evidence', []).append({'type': 'system', 'signal': 'URL-only fallback (no content extracted)', 'impact': '+0'})
+            result.setdefault('tests', []).append({'name': 'Content Fetch', 'status': 'neutral', 'impact': 0, 'details': ['No content extracted']})
+            return jsonify(result), 200
 
         result = calculate_authenticity_score(url or "(text-only)", title, article_text, options)
         return jsonify(result), 200
 
     except requests.exceptions.RequestException as e:
+        # URL-only fallback when network fetch fails
+        url = (data or {}).get('articleLink')
+        options = (data or {}).get('options') or {}
+        if url:
+            fallback_opts = {
+                'phishing': bool(options.get('phishing', True)),
+                'domain': bool(options.get('domain', True)),
+                'linguistic': False,
+                'content': False,
+                'fact': False,
+                'ml': bool(options.get('ml', True))
+            }
+            result = calculate_authenticity_score(url, "(Fetch failed)", "", fallback_opts)
+            result.setdefault('evidence', []).append({'type': 'system', 'signal': 'URL-only fallback (fetch failed)', 'impact': '+0'})
+            result.setdefault('tests', []).append({'name': 'Content Fetch', 'status': 'fail', 'impact': 0, 'details': [str(e)]})
+            return jsonify(result), 200
         return jsonify({'error': f'Error fetching article: {str(e)}'}), 500
     except Exception as e:
         return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
@@ -69,4 +97,5 @@ def train():
     return jsonify(result), status
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)

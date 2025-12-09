@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+  let apiBase = 'http://localhost:5000';
+  if (window.chrome && chrome.storage && chrome.storage.sync) {
+    chrome.storage.sync.get({ backendUrl: apiBase }, (items) => {
+      apiBase = items.backendUrl || apiBase;
+    });
+  }
   const analyzeBtn = document.getElementById('analyze-btn');
   const loading = document.getElementById('loading');
   const scoreSection = document.getElementById('score-section');
@@ -45,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
       content: true,
       ml: chkMl.checked
     };
-    fetch('http://localhost:5000/analyze', {
+    fetch(`${apiBase}/analyze`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ articleLink: url, options })
@@ -61,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(err => {
         hide(loading);
-        showError('Backend unreachable. Ensure Flask server is running on localhost:5000');
+        showError(`Backend unreachable. Set backend URL in extension storage (backendUrl) or ensure server at ${apiBase}`);
       });
   }
 

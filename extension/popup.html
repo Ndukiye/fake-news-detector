@@ -18,11 +18,11 @@
           <button id="analyze-btn" class="primary">Analyze</button>
         </div>
         <div class="checks">
-          <label><input type="checkbox" id="chk-phish" checked/> Phishing detection</label>
-          <label><input type="checkbox" id="chk-fact" checked/> Fact-check via search</label>
-          <label><input type="checkbox" id="chk-domain" checked/> Domain reputation</label>
-          <label><input type="checkbox" id="chk-linguistic" checked/> Linguistic patterns</label>
-          <label><input type="checkbox" id="chk-ml"/> Lightweight ML</label>
+          <label><input type="checkbox" id="chk-phish" checked/> <span class="icon">🛡️</span> Phishing detection</label>
+          <label><input type="checkbox" id="chk-fact" checked/> <span class="icon">🔎</span> Fact-check via search</label>
+          <label><input type="checkbox" id="chk-domain" checked/> <span class="icon">🌐</span> Domain reputation</label>
+          <label><input type="checkbox" id="chk-linguistic" checked/> <span class="icon">📝</span> Linguistic patterns</label>
+          <label><input type="checkbox" id="chk-ml"/> <span class="icon">🤖</span> Lightweight ML</label>
         </div>
       </div>
 
@@ -33,7 +33,8 @@
           <div id="score-badge" class="score-circle"></div>
           <div id="verdict-text" class="verdict"></div>
         </div>
-        <div class="bar"><div id="bar-fill"></div></div>
+        <div class="bar" aria-label="Authenticity level"><div id="bar-fill"></div></div>
+        <div class="microcopy">Evidence-based result. Expand sections below to inspect rules and tests.</div>
       </div>
 
       <details id="evidence-section" class="hidden card">
@@ -48,6 +49,7 @@
       </details>
 
       <div id="error-message" class="hidden"></div>
+      <div class="footer-note">AuthentiScan • Rule-based + optional ML • Local backend</div>
     </main>
   </div>
   <script src="popup.js"></script>

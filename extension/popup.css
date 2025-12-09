@@ -9,6 +9,7 @@ body { margin: 0; font-family: Arial, sans-serif; width: 340px; }
 .primary { background:#3b82f6; color:#fff; border:none; border-radius:8px; padding:8px 12px; cursor:pointer; }
 .checks { display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-top:8px; font-size:0.85rem; }
 .checks label { display:flex; align-items:center; gap:6px; }
+.checks .icon { opacity:0.85; }
 .checks .disabled { opacity:0.5; }
 main {
   flex: 1;
@@ -21,6 +22,8 @@ main {
 .score-wrap { display:flex; align-items:center; justify-content:center; gap:12px; }
 .score-circle { width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; }
 .verdict { font-size:0.9rem; opacity:0.9; }
+.microcopy { margin-top:6px; font-size:0.75rem; opacity:0.6; }
+.footer-note { margin:8px 12px; font-size:0.75rem; opacity:0.6; }
 .bar { height:8px; background:#1f2937; border-radius:6px; overflow:hidden; margin-top:8px; }
 #bar-fill { height:100%; width:0%; background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981); }
 #evidence-section summary {

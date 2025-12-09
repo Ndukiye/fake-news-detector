@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  let apiBase = 'http://localhost:5000';
+  let apiBase = 'https://authentiscan-601g.onrender.com';
   if (window.chrome && chrome.storage && chrome.storage.sync) {
     chrome.storage.sync.get({ backendUrl: apiBase }, (items) => {
       apiBase = items.backendUrl || apiBase;
